@@ -2,53 +2,77 @@ import type { Track } from "./types";
 
 export const tracks: Track[] = [
   {
-    src: "1",
-    name: "Track 1",
+    src: "/tracks/bob white devil.wav",
+    title: "Bob the White Devil",
     artist: "Diego Blattner",
   },
   {
-    src: "2",
-    name: "Track 2",
+    src: "/tracks/diatonic substitution.wav",
+    title: "Study - Diatonic Substitution",
     artist: "Diego Blattner",
   },
   {
-    src: "3",
-    name: "Track 3",
+    src: "/tracks/Down the stairs.wav",
+    title: "Down the Stairs",
     artist: "Diego Blattner",
   },
   {
-    src: "4",
-    name: "Track 4",
+    src: "/tracks/field his hers tog.wav",
+    title: "Field, His, Hers, Together",
     artist: "Diego Blattner",
   },
   {
-    src: "5",
-    name: "Track 5",
+    src: "/tracks/fun.wav",
+    title: "Fun",
     artist: "Diego Blattner",
   },
   {
-    src: "6",
-    name: "Track 6",
+    src: "/tracks/journey.wav",
+    title: "Journey - Miraak's rebirth",
     artist: "Diego Blattner",
   },
   {
-    src: "7",
-    name: "Track 7",
+    src: "/tracks/lead the way.wav",
+    title: "Lead the Way",
     artist: "Diego Blattner",
   },
   {
-    src: "8",
-    name: "Track 8",
+    src: "/tracks/lonely planet.wav",
+    title: "Lonely Planet",
     artist: "Diego Blattner",
   },
   {
-    src: "9",
-    name: "Track 9",
+    src: "/tracks/melos.wav",
+    title: "Study - Melos",
     artist: "Diego Blattner",
   },
   {
-    src: "10",
-    name: "Track 10",
+    src: "/tracks/monument valey.wav",
+    title: "Monument Valey - trailer study",
     artist: "Diego Blattner",
   },
-];
+  {
+    src: "/tracks/noir.wav",
+    title: "Noir",
+    artist: "Diego Blattner",
+  },
+  {
+    src: "/tracks/ostinato altered.wav",
+    title: "Study - Ostinato Altered - Inception",
+    artist: "Diego Blattner",
+  },
+  {
+    src: "/tracks/pirates.wav",
+    title: "Study - Pirates",
+    artist: "Diego Blattner",
+  },
+  {
+    src: "/tracks/racing skyhigh.wav",
+    title: "Racing Skyhigh",
+    artist: "Diego Blattner",
+  },
+  {
+    src: "/tracks/the last of us.wav",
+    title: "The Last of Us - chase scene",
+    artist: "Diego Blattner",
+}];

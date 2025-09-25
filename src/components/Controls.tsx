@@ -1,3 +1,5 @@
+import { TimeControl } from "./TimeControl";
+import { type RefObject } from "react";
 import type { Track } from "../types";
 
 
@@ -9,6 +11,7 @@ type ControlsProps = Readonly<{
   onPrev: () => void;
   isShuffled: boolean;
   toggleShuffled: () => void;
+  audioRef: RefObject<HTMLAudioElement | null>;
 }>;
 
 export function Controls({
@@ -17,16 +20,20 @@ export function Controls({
   togglePlaying,
   onNext,
   onPrev,
+  audioRef,
 }: ControlsProps) {
   return (
     <div>
       {currentTrack && (
-        <div className="p-2 bg-gray-950 border-t border-gray-100/70 backdrop-sepia-50">
-          <div>{currentTrack.name}</div>
-          <div>{currentTrack.artist}</div>
-        </div>
+        <>
+          <div className="px-4 pt-2 pb-4 bg-gray-950/70 border-t border-gray-100/20 backdrop-brightness-150">
+            <div className="text-lg">{currentTrack.title}</div>
+            <div className="text-sm">{currentTrack.artist}</div>
+          </div>
+          <TimeControl audioRef={audioRef} currentTrack={currentTrack} />
+        </>
       )}
-      <div className="flex border-t border-gray-100/70 justify-center items-center p-2 gap-2">
+      <div className="flex border-t border-gray-100/20 justify-center items-center p-2 gap-2">
         <div>
           <button className="rounded border border-gray-100/70 p-2 cursor-pointer w-11 h-11" onClick={onPrev}>{"<"}</button>
         </div>

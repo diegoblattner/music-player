@@ -35,3 +35,99 @@
   0%   { height: 48px} 
   100% { height: 4px}
 }
+
+
+.time-control {
+  --time-control-black: #000;
+  --time-control-white: #FFF;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  margin-top: -5px;
+  margin-bottom: -6px;
+  z-index: 10;
+  width: 100%;
+}
+.time-control:focus {
+  outline: none;
+}
+.time-control::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px var(--time-control-black);
+  background: var(--time-control-white);
+  border-radius: 0px;
+  border: 0px solid var(--time-control-black);
+}
+.time-control::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px var(--time-control-black);
+  border: 0px solid var(--time-control-black);
+  height: 24px;
+  width: 24px;
+  border-radius: 24px;
+  background: var(--time-control-white);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -10px;
+}
+.time-control:focus::-webkit-slider-runnable-track {
+  background: var(--time-control-white);
+}
+.time-control::-moz-range-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px var(--time-control-black);
+  background: var(--time-control-white);
+  border-radius: 0px;
+  border: 0px solid var(--time-control-black);
+}
+.time-control::-moz-range-thumb {
+  box-shadow: 0px 0px 0px var(--time-control-black);
+  border: 0px solid var(--time-control-black);
+  height: 24px;
+  width: 24px;
+  border-radius: 24px;
+  background: var(--time-control-white);
+  cursor: pointer;
+}
+.time-control::-ms-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+.time-control::-ms-fill-lower {
+  background: var(--time-control-white);
+  border: 0px solid var(--time-control-black);
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px var(--time-control-black);
+}
+.time-control::-ms-fill-upper {
+  background: var(--time-control-white);
+  border: 0px solid var(--time-control-black);
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px var(--time-control-black);
+}
+.time-control::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 0px 0px 0px var(--time-control-black);
+  border: 0px solid var(--time-control-black);
+  height: 24px;
+  width: 24px;
+  border-radius: 24px;
+  background: var(--time-control-white);
+  cursor: pointer;
+}
+.time-control:focus::-ms-fill-lower {
+  background: var(--time-control-white);
+}
+.time-control:focus::-ms-fill-upper {
+  background: var(--time-control-white);
+}

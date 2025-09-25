@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { TrackList } from './components/TrackList';
+import { useRef, useState } from "react";
+import { TrackList } from "./components/TrackList";
 import { tracks } from "./data";
-import { Controls } from './components/Controls';
-import type { Track } from './types';
+import { Controls } from "./components/Controls";
+import type { Track } from "./types";
 
 function shuffleArray<T>(array: T[]): T[] {
   const shuffledArray = new Array<T>(...array);
@@ -23,13 +23,14 @@ function shuffleArray<T>(array: T[]): T[] {
 }
 
 function App() {
+  const ref = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isShuffled, setIsShuffled] = useState(false);
   const [playlistOrder, setPlaylistOrder] = useState(tracks);
   const [playedTracks, setPlayedTracks] = useState(new Set<Track>());
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
   
-  function toggleShuffled() {
+  const toggleShuffled = () => {
     const newIsShuffled = !isShuffled;
     if (newIsShuffled) {
       setPlaylistOrder(shuffleArray(tracks));
@@ -39,30 +40,66 @@ function App() {
     setIsShuffled(newIsShuffled);
   }
 
-  function changeTrack(to: number) {
+  const changeTrack = (to: number) => {
     const currentTrackIndex = playlistOrder.indexOf(currentTrack!);
     const newTrackIndex = currentTrackIndex + to;
+    let newTrack: Track;
 
     if (newTrackIndex < 0) { // set the last track
-      setCurrentTrack(playlistOrder[playlistOrder.length - 1]);
+      newTrack = playlistOrder[playlistOrder.length - 1];
     } else if (newTrackIndex >= playlistOrder.length) {
-      setCurrentTrack(playlistOrder[0]);
+      newTrack = playlistOrder[0];
     } else {
-      setCurrentTrack(playlistOrder[newTrackIndex]);
+      newTrack = playlistOrder[newTrackIndex];
     }
-  }
+
+    goToTrack(newTrack);
+  };
+
+  const goToTrack = (newTrack: Track) => {
+    setCurrentTrack(newTrack);
+    
+    if (ref.current) {
+      ref.current.pause();
+      ref.current.src = newTrack.src;
+      ref.current.onloadeddata = () => {
+        ref.current!.onloadeddata = null;
+
+        setTimeout(() => {
+          setIsPlaying(true);
+          ref.current?.play();
+        }, 200);
+      };
+    }
+  };
+
+  const togglePlay = () => {
+    const newIsPlaying = !isPlaying;
+    if (newIsPlaying) {
+      ref.current?.play();
+    } else {
+      ref.current?.pause();
+    }
+    setIsPlaying(newIsPlaying);
+  };
+
+  const trackEnded = () => {
+    setPlayedTracks(new Set([...playedTracks, currentTrack!]));
+    changeTrack(1);
+  };
 
   return (
-    <div className='max-w-[500px] mx-auto flex flex-col h-[100dvh] bg-gray-900 text-white'>
-      <header className='p-4 text-4xl'>
+    <div className="max-w-[500px] mx-auto flex flex-col h-[100dvh] bg-gradient-to-tr from-gray-900 via-neutral-800 to-slate-950 text-white">
+      <header className="p-4 text-4xl">
         <h1>Music player app 🎧</h1>
       </header>
-      <main className='flex-1 grid grid-rows-[minmax(30px,1fr)_auto] overflow-y-auto'>
-        <div className='overflow-y-auto mt-2 md:mx-2'>
+      <main className="relative flex-1 grid grid-rows-[minmax(30px,1fr)_auto] overflow-y-auto">
+        <div className="overflow-y-auto border-t border-gray-100/10 rounded-t-lg mt-2 mx-2">
+        <div className="absolute mx-1.5 rouded-t-lg top-2 w-full h-[1px]  shadow-black shadow z-10"></div>
           <TrackList
             tracks={tracks}
             currentTrack={currentTrack}
-            onClick={setCurrentTrack}
+            onClick={goToTrack}
             isPlaying={isPlaying}
             playedTracks={playedTracks}
           />
@@ -70,13 +107,18 @@ function App() {
         <Controls
           currentTrack={currentTrack}
           isPlaying={isPlaying}
-          togglePlaying={() => setIsPlaying(!isPlaying)}
+          togglePlaying={togglePlay}
           onNext={() => changeTrack(1)}
           onPrev={() => changeTrack(-1)}
           isShuffled={isShuffled}
           toggleShuffled={toggleShuffled}
+          audioRef={ref}
         />
       </main>
+      <audio ref={ref} controls={false} onEnded={trackEnded}>
+        {/* <track default kind="captions" srcLang="en" /> */}
+        Audio not supported
+      </audio>
     </div>
   )
 }
