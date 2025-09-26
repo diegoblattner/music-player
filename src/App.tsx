@@ -5,12 +5,13 @@ import { Controls } from "./components/Controls";
 import { shuffleArray } from "./utils";
 import { Header } from "./components/Header";
 import { TrackCount } from "./components/TrackCount";
-import type { Track } from "./types";
+import type { Repeat, Track } from "./types";
 
 function App() {
   const ref = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isShuffled, setIsShuffled] = useState(false);
+  const [repeatType, setRepeatType] = useState<Repeat>("none");
   const [playlistOrder, setPlaylistOrder] = useState(tracks);
   const [playedTracks, setPlayedTracks] = useState(new Set<Track>());
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
@@ -56,7 +57,7 @@ function App() {
             ref.current.volume = 0.5;
             ref.current.play();
           }
-        }, 200);
+        }, 300);
       };
     }
   };
@@ -80,7 +81,13 @@ function App() {
 
   const trackEnded = () => {
     setPlayedTracks(new Set([...playedTracks, currentTrack!]));
-    changeTrack(1);
+    if (repeatType === "one") {
+      ref.current?.play();
+    } else if (repeatType === "none" && playlistOrder.indexOf(currentTrack!) === playlistOrder.length -1) {
+      setIsPlaying(false); // it is the last item in the list, so we stop playing
+    } else {
+      changeTrack(1);
+    }
   };
 
   return (
@@ -109,6 +116,8 @@ function App() {
           isShuffled={isShuffled}
           toggleShuffled={toggleShuffled}
           audioRef={ref}
+          repeatType={repeatType}
+          setRepeatType={setRepeatType}
         />
       </main>
       <audio ref={ref} controls={false} onEnded={trackEnded}>

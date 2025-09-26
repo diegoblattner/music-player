@@ -4,3 +4,6 @@ export type Track = {
   artist: string;
   duration: number;
 };
+
+export type Repeat = "none" | "one" | "all";
+

@@ -1,7 +1,15 @@
 import { TimeControl } from "./TimeControl";
-import { FaPlay, FaPause, FaBackwardStep, FaForwardStep, FaShuffle } from "react-icons/fa6";
+import {
+  FaPlay,
+  FaPause,
+  FaBackwardStep,
+  FaForwardStep,
+  FaShuffle,
+  FaRepeat,
+  FaInfinity,
+} from "react-icons/fa6";
 import { type RefObject } from "react";
-import type { Track } from "../types";
+import type { Repeat, Track } from "../types";
 
 type ControlsProps = Readonly<{
   currentTrack: Track | null;
@@ -12,6 +20,8 @@ type ControlsProps = Readonly<{
   isShuffled: boolean;
   toggleShuffled: () => void;
   audioRef: RefObject<HTMLAudioElement | null>;
+  repeatType: Repeat;
+  setRepeatType: (repeat: Repeat) => void;
 }>;
 
 type BtnProps = Readonly<{
@@ -23,6 +33,17 @@ type BtnProps = Readonly<{
 }>;
 
 const btnSize = "rounded w-9 h-9 text-lg xs:w-11 xs:h-11 xs:text-xl";
+
+const REPEAT_LABEL: Record<Repeat, string> = {
+  "none": "No repeat",
+  "one": "Repeat current",
+  "all": "Repeat all",
+}
+const REPEAT_LOOP: Record<Repeat, Repeat> = {
+  "none": "one",
+  "one": "all",
+  "all": "none",
+}
 
 function Btn({ title, sizeClassName = btnSize, children, onClick, pressed }: BtnProps) {
   return (
@@ -52,6 +73,8 @@ export function Controls({
   audioRef,
   isShuffled,
   toggleShuffled,
+  repeatType,
+  setRepeatType,
 }: ControlsProps) {
   return (
     <div className="backdrop-hue-rotate-15">
@@ -87,7 +110,19 @@ export function Controls({
             <FaForwardStep />
           </Btn>
         </div>
-        <div className={btnSize}></div>
+        <Btn
+          title={REPEAT_LABEL[repeatType]}
+          pressed={repeatType !== "none"}
+          onClick={() => setRepeatType(REPEAT_LOOP[repeatType])}
+        >
+          <div className="relative">
+            <FaRepeat />
+            <span className="absolute text-xs -bottom-2.5 -end-1.5">
+              {repeatType === "one" && "1"}
+              {repeatType === "all" && <FaInfinity />}
+            </span>
+          </div>
+        </Btn>
       </div>
     </div>
   )
