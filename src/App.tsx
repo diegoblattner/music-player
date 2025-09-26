@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { TrackList } from "./components/TrackList";
 import { tracks } from "./data";
 import { Controls } from "./components/Controls";
@@ -14,12 +14,6 @@ function App() {
   const [playlistOrder, setPlaylistOrder] = useState(tracks);
   const [playedTracks, setPlayedTracks] = useState(new Set<Track>());
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
-  
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.volume = 0.5;
-    }
-  }, [ref]);
 
   const toggleShuffled = () => {
     const newIsShuffled = !isShuffled;
@@ -58,7 +52,10 @@ function App() {
 
         setTimeout(() => {
           setIsPlaying(true);
-          ref.current?.play();
+          if (ref.current) {
+            ref.current.volume = 0.5;
+            ref.current.play();
+          }
         }, 200);
       };
     }
@@ -71,7 +68,10 @@ function App() {
     }
     const newIsPlaying = !isPlaying;
     if (newIsPlaying) {
-      ref.current?.play();
+      if (ref.current) {
+        ref.current.volume = 0.5;
+        ref.current.play();
+      }
     } else {
       ref.current?.pause();
     }
