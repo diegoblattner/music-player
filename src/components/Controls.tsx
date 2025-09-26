@@ -25,15 +25,15 @@ export function Controls({
   return (
     <div>
       {currentTrack && (
-        <>
-          <div className="px-4 pt-2 pb-4 bg-gray-950/70 border-t border-gray-100/20 backdrop-brightness-150">
+        <div className="slide-in">
+          <div className="px-4 pt-2 pb-4 bg-gray-950/50 backdrop-hue-rotate-15">
             <div className="text-lg">{currentTrack.title}</div>
             <div className="text-sm">{currentTrack.artist}</div>
           </div>
           <TimeControl audioRef={audioRef} currentTrack={currentTrack} />
-        </>
+        </div>
       )}
-      <div className="flex border-t border-gray-100/20 justify-center items-center p-2 gap-2">
+      <div className="flex justify-center items-center p-2 gap-2">
         <div>
           <button className="rounded border border-gray-100/70 p-2 cursor-pointer w-11 h-11" onClick={onPrev}>{"<"}</button>
         </div>

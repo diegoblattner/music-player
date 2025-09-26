@@ -1,17 +1,11 @@
 import { useEffect, useState, type RefObject } from "react";
+import { secondsToTimeStr } from "../utils";
 import type { Track } from "../types";
 
 type TimeControl = Readonly<{
   currentTrack: Track;
   audioRef: RefObject<HTMLAudioElement | null>;
 }>;
-
-function secondsToTimeStr(timeInSeconds: number = 0): string {
-  const minutes = Math.floor(timeInSeconds / 60);
-  const seconds = timeInSeconds - minutes * 60;
-
-  return `${minutes.toString().padStart(2, "0")}:${seconds.toFixed(0).padStart(2, "0")}`;
-}
 
 const TIME_STEP = 0.25;
 
@@ -65,7 +59,7 @@ export function TimeControl({ currentTrack, audioRef }: TimeControl) {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="slide-in flex flex-col -mt-1.5 -mb-4">
       <input
         className="time-control block w-full"
         type="range"
@@ -75,9 +69,9 @@ export function TimeControl({ currentTrack, audioRef }: TimeControl) {
         step={TIME_STEP}
         onChange={(ev) => onSeekAudio(Number(ev.target.value))}
       />
-      <div className="flex justify-between text-xs">
-        <div className="px-2 py-1">{timeStr}</div>
-        <div className="px-2 py-1">{durationStr}</div>
+      <div className="flex justify-between text-xs mt-2">
+        <div className="px-2">{timeStr}</div>
+        <div className="px-2">{durationStr}</div>
       </div>
     </div>
   );

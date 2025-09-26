@@ -73,6 +73,6 @@ export const tracks: Track[] = [
   },
   {
     src: "/tracks/the last of us.wav",
-    title: "The Last of Us - chase scene",
+    title: "The Last of Us - Chase scene",
     artist: "Diego Blattner",
 }];

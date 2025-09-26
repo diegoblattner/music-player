@@ -2,25 +2,8 @@ import { useRef, useState } from "react";
 import { TrackList } from "./components/TrackList";
 import { tracks } from "./data";
 import { Controls } from "./components/Controls";
+import { shuffleArray } from "./utils";
 import type { Track } from "./types";
-
-function shuffleArray<T>(array: T[]): T[] {
-  const shuffledArray = new Array<T>(...array);
-  let currentIndex = array.length;
-
-  // While there remain elements to shuffle...
-  while (currentIndex != 0) {
-
-    // Pick a remaining element...
-    const randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [shuffledArray[currentIndex], shuffledArray[randomIndex]] = [
-      shuffledArray[randomIndex], shuffledArray[currentIndex]];
-  }
-  return shuffledArray;
-}
 
 function App() {
   const ref = useRef<HTMLAudioElement>(null);
@@ -74,6 +57,10 @@ function App() {
   };
 
   const togglePlay = () => {
+    if (!currentTrack && !isPlaying) {
+      goToTrack(tracks[0]);
+      return;
+    }
     const newIsPlaying = !isPlaying;
     if (newIsPlaying) {
       ref.current?.play();
@@ -89,13 +76,13 @@ function App() {
   };
 
   return (
-    <div className="max-w-[500px] mx-auto flex flex-col h-[100dvh] bg-gradient-to-tr from-gray-900 via-neutral-800 to-slate-950 text-white">
+    <div className="max-w-[80ch] mx-auto flex flex-col h-[100dvh]">
       <header className="p-4 text-4xl">
         <h1>Music player app 🎧</h1>
       </header>
       <main className="relative flex-1 grid grid-rows-[minmax(30px,1fr)_auto] overflow-y-auto">
         <div className="overflow-y-auto border-t border-gray-100/10 rounded-t-lg mt-2 mx-2">
-        <div className="absolute mx-1.5 rouded-t-lg top-2 w-full h-[1px]  shadow-black shadow z-10"></div>
+          <div className="absolute rounded-t-md top-[9px] start-2.5 end-2.5 h-2 bg-gradient-to-b from-black/60 via-black/15 to-transparent z-10"></div>
           <TrackList
             tracks={tracks}
             currentTrack={currentTrack}
@@ -104,6 +91,8 @@ function App() {
             playedTracks={playedTracks}
           />
         </div>
+        <div className="h-2 -mt-2 bg-gradient-to-t from-black/60 via-black/15 to-transparent z-10"></div>
+        <div className="h-[1px] bg-gray-100/10"></div>
         <Controls
           currentTrack={currentTrack}
           isPlaying={isPlaying}
