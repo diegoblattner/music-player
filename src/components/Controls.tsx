@@ -117,7 +117,7 @@ export function Controls({
         >
           <div className="relative">
             <FaRepeat />
-            <span className="absolute text-xs -bottom-2.5 -end-1.5">
+            <span className="absolute text-xs -bottom-2 -end-[5px] xs:-bottom-2.5 xs:-end-1.5">
               {repeatType === "one" && "1"}
               {repeatType === "all" && <FaInfinity />}
             </span>
