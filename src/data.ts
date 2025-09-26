@@ -2,8 +2,8 @@ import type { Track } from "./types";
 
 export const tracks: Track[] = [
   {
-    src: "/tracks/bob white devil.wav",
-    title: "Bob the White Devil",
+    src: "/tracks/field his hers tog.wav",
+    title: "Field, His, Hers, Together",
     artist: "Diego Blattner",
   },
   {
@@ -12,13 +12,13 @@ export const tracks: Track[] = [
     artist: "Diego Blattner",
   },
   {
-    src: "/tracks/Down the stairs.wav",
-    title: "Down the Stairs",
+    src: "/tracks/bob white devil.wav",
+    title: "Bob the White Devil",
     artist: "Diego Blattner",
   },
   {
-    src: "/tracks/field his hers tog.wav",
-    title: "Field, His, Hers, Together",
+    src: "/tracks/Down the stairs.wav",
+    title: "Down the Stairs",
     artist: "Diego Blattner",
   },
   {
@@ -63,7 +63,7 @@ export const tracks: Track[] = [
   },
   {
     src: "/tracks/pirates.wav",
-    title: "Study - Pirates",
+    title: "Study over dialogue - Pirates",
     artist: "Diego Blattner",
   },
   {

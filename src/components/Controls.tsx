@@ -1,4 +1,5 @@
 import { TimeControl } from "./TimeControl";
+import { FaPlay, FaPause, FaBackwardStep, FaForwardStep, FaShuffle } from "react-icons/fa6";
 import { type RefObject } from "react";
 import type { Track } from "../types";
 
@@ -14,6 +15,32 @@ type ControlsProps = Readonly<{
   audioRef: RefObject<HTMLAudioElement | null>;
 }>;
 
+type BtnProps = Readonly<{
+  title: string;
+  className: string;
+  children: React.ReactNode;
+  onClick: () => void;
+  pressed?: boolean;
+}>;
+
+function Btn({ title, className, children, onClick, pressed }: BtnProps) {
+  return (
+    <button
+      title={title}
+      aria-pressed={pressed}
+      className={`
+flex justify-center items-center rounded border border-gray-50/5 p-2 
+cursor-pointer backdrop-hue-rotate-30 
+shadow shadow-black active:scale-105 aria-[pressed="true"]:text-secondary aria-[pressed="true"]:text-xl ${className}
+focus-visible:outline-2 focus-visible:outline-secondary-shaded
+`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  )
+}
+
 export function Controls({
   currentTrack,
   isPlaying,
@@ -21,9 +48,11 @@ export function Controls({
   onNext,
   onPrev,
   audioRef,
+  isShuffled,
+  toggleShuffled,
 }: ControlsProps) {
   return (
-    <div>
+    <div className="backdrop-hue-rotate-15">
       {currentTrack && (
         <div className="slide-in">
           <div className="px-4 pt-2 pb-4 bg-gray-950/50 backdrop-hue-rotate-15">
@@ -33,16 +62,31 @@ export function Controls({
           <TimeControl audioRef={audioRef} currentTrack={currentTrack} />
         </div>
       )}
-      <div className="flex justify-center items-center p-2 gap-2">
-        <div>
-          <button className="rounded border border-gray-100/70 p-2 cursor-pointer w-11 h-11" onClick={onPrev}>{"<"}</button>
+      <div className="flex justify-center gap-10 p-4">
+        <Btn
+          title="Shuffle playlist order"
+          className="rounded w-11 h-11"
+          pressed={isShuffled}
+          onClick={toggleShuffled}
+        >
+          <FaShuffle />
+        </Btn>
+        <div className="flex justify-center items-center -m-2 gap-4">
+          <Btn title="Previous track" className="rounded w-11 h-11 text-xl" onClick={onPrev}>
+            <FaBackwardStep />
+          </Btn>
+          <Btn
+            title={isPlaying ? "Pause" : "Play"}
+            className="rounded-full w-15 h-15 text-3xl"
+            onClick={togglePlaying}
+          >
+              {isPlaying ? <FaPause /> : <FaPlay className="ms-1" />}
+          </Btn>
+          <Btn title="Next track" className="rounded w-11 h-11 text-xl" onClick={onNext}>
+            <FaForwardStep />
+          </Btn>
         </div>
-        <div>
-          <button className="rounded-full border border-gray-100/70 cursor-pointer w-14 h-14" onClick={togglePlaying}>{isPlaying ? "||" : "|>"}</button>
-        </div>
-        <div>
-          <button className="rounded border border-gray-100/70 p-2 cursor-pointer w-11 h-11" onClick={onNext}>{">"}</button>
-        </div>
+        <div className="w-11 h-11"></div>
       </div>
     </div>
   )

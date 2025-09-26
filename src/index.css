@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@theme {
+  --color-white: #f5f5f5;
+  --color-primary: #ffc941;
+  --color-secondary: rgba(23, 167, 158);
+  --color-secondary-shaded: --alpha(var(--color-secondary) / 60%);
+}
+
 .playing {
   width: 8px;
   height: 40px;
@@ -8,7 +15,7 @@
   margin: 20px auto;
   position: relative;
   background: currentColor;
-  color: #FFF;
+  color: currentColor;
   box-sizing: border-box;
   animation: animplaying 0.3s 0.3s linear infinite alternate;
 }
@@ -50,7 +57,7 @@
   --time-control-black: #000;
   --time-control-white: #ffffffc6;
   --time-control-white-thump: #ffffffc6;
-  --time-control-outline: 3px solid rgba(0, 123, 255, .6);
+  --time-control-outline: 4px solid var(--color-secondary-shaded);
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;

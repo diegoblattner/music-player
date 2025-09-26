@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TrackList } from "./components/TrackList";
 import { tracks } from "./data";
 import { Controls } from "./components/Controls";
 import { shuffleArray } from "./utils";
+import { FaEnvelope, FaGithub } from "react-icons/fa6";
 import type { Track } from "./types";
 
 function App() {
@@ -13,6 +14,12 @@ function App() {
   const [playedTracks, setPlayedTracks] = useState(new Set<Track>());
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
   
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.volume = 0.5;
+    }
+  }, [ref]);
+
   const toggleShuffled = () => {
     const newIsShuffled = !isShuffled;
     if (newIsShuffled) {
@@ -77,12 +84,17 @@ function App() {
 
   return (
     <div className="max-w-[80ch] mx-auto flex flex-col h-[100dvh]">
-      <header className="p-4 text-4xl">
-        <h1>Music player app 🎧</h1>
+      <header className="flex justify-between p-4 text-4xl">
+        <h1>Diego's Portfolio 🎧</h1>
+        <div className="flex gap-6 text-2xl items-center justify-center mx-2">
+          <a href="mailto:diblattner@gmail.com" className="rounded focus-visible:outline-2 focus-visible:outline-secondary-shaded" aria-label="My e-mail"><FaEnvelope /></a>
+          <a href="https://github.com/diegoblattner" className="rounded focus-visible:outline-2 focus-visible:outline-secondary-shaded" target="_blank" aria-label="My GitHub"><FaGithub /></a>
+        </div>
       </header>
-      <main className="relative flex-1 grid grid-rows-[minmax(30px,1fr)_auto] overflow-y-auto">
-        <div className="overflow-y-auto border-t border-gray-100/10 rounded-t-lg mt-2 mx-2">
-          <div className="absolute rounded-t-md top-[9px] start-2.5 end-2.5 h-2 bg-gradient-to-b from-black/60 via-black/15 to-transparent z-10"></div>
+      <main className="relative flex-1 grid grid-rows-[auto_minmax(30px,1fr)_auto] overflow-y-auto">
+        <h2 className="px-4 text-lg">All tracks ({playlistOrder.length})</h2>
+        <div className="overflow-y-auto border-t border-gray-100/10 rounded-t-lg mt-2 mx-2 focus-visible:outline-2 focus-visible:outline-secondary-shaded">
+          <div className="absolute rounded-t-md top-[37px] start-2.5 end-2.5 h-2 bg-gradient-to-b from-black/60 via-black/15 to-transparent z-10"></div>
           <TrackList
             tracks={tracks}
             currentTrack={currentTrack}
