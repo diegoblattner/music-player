@@ -1,3 +1,4 @@
+import { secondsToTimeStr } from "../utils";
 import type { Track } from "../types";
 
 type TrackListProps = Readonly<{
@@ -32,11 +33,14 @@ ${playedTracks.has(track) ? "text-white/70" : ""}
           aria-pressed={currentTrack === track}
         >
           <div className="grow">
-            <div className="text-lg">{track.title}</div>
+            <div>{track.title}</div>
             <div className="text-sm">{track.artist}</div>
           </div>
           <div className={`flex items-center w-12 h-12 ${currentTrack === track && isPlaying ? "slide-in" : ""}`}>
             <span className={`scale-[0.4] ${currentTrack === track && isPlaying ? "playing" : ""}`} />
+          </div>
+          <div className="flex items-center w-12 h-12 text-sm">
+            <span>{secondsToTimeStr(track.duration)}</span>
           </div>
         </button>
       ))}

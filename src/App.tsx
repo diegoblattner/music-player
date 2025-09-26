@@ -3,8 +3,9 @@ import { TrackList } from "./components/TrackList";
 import { tracks } from "./data";
 import { Controls } from "./components/Controls";
 import { shuffleArray } from "./utils";
-import type { Track } from "./types";
 import { Header } from "./components/Header";
+import { TrackCount } from "./components/TrackCount";
+import type { Track } from "./types";
 
 function App() {
   const ref = useRef<HTMLAudioElement>(null);
@@ -86,7 +87,7 @@ function App() {
     <div className="max-w-[80ch] mx-auto flex flex-col h-[100dvh]">
       <Header />
       <main className="relative flex-1 grid grid-rows-[auto_minmax(30px,1fr)_auto] overflow-y-auto">
-        <h2 className="px-4 text-lg">All tracks ({playlistOrder.length})</h2>
+        <TrackCount playlistOrder={playlistOrder} />
         <div className="overflow-y-auto border-t border-gray-100/10 rounded-t-lg mt-2 mx-2 focus-visible:outline-2 focus-visible:outline-secondary-shaded">
           <div className="absolute rounded-t-md top-[37px] start-2.5 end-2.5 h-2 bg-gradient-to-b from-black/60 via-black/15 to-transparent z-10"></div>
           <TrackList

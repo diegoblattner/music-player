@@ -16,9 +16,9 @@ export function shuffleArray<T>(array: T[]): T[] {
   return shuffledArray;
 }
 
-export function secondsToTimeStr(timeInSeconds: number = 0): string {
+export function secondsToTimeStr(timeInSeconds: number = 0, minSuffix = ":", secSuffix = ""): string {
   const minutes = Math.floor(timeInSeconds / 60);
   const seconds = timeInSeconds - minutes * 60;
 
-  return `${minutes.toString().padStart(2, "0")}:${seconds.toFixed(0).padStart(2, "0")}`;
+  return `${minutes.toString().padStart(2, "0")}${minSuffix}${seconds.toFixed(0).padStart(2, "0")}${secSuffix}`;
 }
