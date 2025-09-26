@@ -59,8 +59,9 @@ export function TimeControl({ currentTrack, audioRef }: TimeControl) {
   };
 
   return (
-    <div className="slide-in flex flex-col -mt-1.5 -mb-4">
+    <div className="slide-in flex flex-col -mt-1.5 -mb-2">
       <input
+        aria-label="Time control"
         className="time-control block w-full"
         type="range"
         value={time}
