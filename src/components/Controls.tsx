@@ -1,4 +1,5 @@
 import { TimeControl } from "./TimeControl";
+import { SlideVertical } from "./SlideVertical";
 import {
   FaPlay,
   FaPause,
@@ -79,13 +80,13 @@ export function Controls({
   return (
     <div className="backdrop-hue-rotate-15">
       {currentTrack && (
-        <div className="slide-in">
+        <SlideVertical duration={400}>
           <div className="px-4 pt-2 pb-4 bg-gray-950/50 backdrop-hue-rotate-15">
             <div className="text-lg">{currentTrack.title}</div>
             <div className="text-sm">{currentTrack.artist}</div>
           </div>
           <TimeControl audioRef={audioRef} currentTrack={currentTrack} />
-        </div>
+        </SlideVertical>
       )}
       <div className="flex justify-center gap-10 p-4">
         <Btn
