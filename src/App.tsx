@@ -54,7 +54,6 @@ function App() {
         setTimeout(() => {
           setIsPlaying(true);
           if (ref.current) {
-            ref.current.volume = 0.5;
             ref.current.play();
           }
         }, 300);
@@ -70,7 +69,6 @@ function App() {
     const newIsPlaying = !isPlaying;
     if (newIsPlaying) {
       if (ref.current) {
-        ref.current.volume = 0.5;
         ref.current.play();
       }
     } else {
@@ -91,9 +89,11 @@ function App() {
   };
 
   return (
-    <div className="max-w-[80ch] mx-auto flex flex-col h-[100dvh]">
+    <div className={`max-w-[80ch] mx-auto flex flex-col h-[100dvh]
+before:h-17 xs:before:h-19 before:w-full before:bg-black/40 before:absolute before:-z-10 before:inset-x-0 before:block
+`}>
       <Header />
-      <main className="relative flex-1 grid grid-rows-[auto_minmax(30px,1fr)_auto] overflow-y-auto">
+      <main className="relative mt-3 flex-1 grid grid-rows-[auto_minmax(30px,1fr)_auto] overflow-y-auto">
         <TrackCount playlistOrder={playlistOrder} />
         <div className="overflow-y-auto border-t border-gray-100/10 rounded-t-lg mt-2 mx-2 focus-visible:outline-2 focus-visible:outline-secondary-shaded">
           <div className="absolute rounded-t-md top-[37px] start-2.5 end-2.5 h-2 bg-gradient-to-b from-black/60 via-black/15 to-transparent z-10"></div>

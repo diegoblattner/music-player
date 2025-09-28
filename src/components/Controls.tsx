@@ -52,8 +52,8 @@ function Btn({ title, sizeClassName = btnSize, children, onClick, pressed }: Btn
       aria-pressed={pressed}
       onClick={onClick}
       className={`
-flex justify-center items-center rounded border border-gray-50/5 p-2 
-cursor-pointer backdrop-hue-rotate-30 
+flex justify-center items-center rounded border border-gray-100/10 p-2 
+cursor-pointer bg-gray-900/25
 shadow shadow-black active:scale-105 aria-[pressed="true"]:text-secondary aria-[pressed="true"]:text-xl
 focus-visible:outline-2 focus-visible:outline-secondary-shaded
 ${sizeClassName}
