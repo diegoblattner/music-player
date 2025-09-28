@@ -4,20 +4,20 @@ import type { Track } from "../types";
 
 type TimeControl = Readonly<{
   currentTrack: Track;
-  audioRef: RefObject<HTMLAudioElement | null>;
+  mediaRef: RefObject<HTMLAudioElement | HTMLVideoElement | null>;
 }>;
 
 const TIME_STEP = 0.25;
 
-export function TimeControl({ currentTrack, audioRef }: TimeControl) {
+export function TimeControl({ currentTrack, mediaRef }: TimeControl) {
   const [duration, setDuration] = useState(0);
   const [time, setTime] = useState(0);
   const [durationStr, setDurationStr] = useState(secondsToTimeStr(0));
   const [timeStr, setTimeStr] = useState(secondsToTimeStr(0));
 
   useEffect(() => {
-    if (audioRef.current) {
-      const audioEl = audioRef.current;
+    if (mediaRef.current) {
+      const audioEl = mediaRef.current;
       audioEl.ondurationchange = () => {
         setDuration(audioEl.duration ?? 0);
         setDurationStr(secondsToTimeStr(audioEl.duration));
@@ -28,34 +28,34 @@ export function TimeControl({ currentTrack, audioRef }: TimeControl) {
         }
       }
     }
-  }, [audioRef]);
+  }, [mediaRef]);
 
   useEffect(() => {
     if (currentTrack) {
       setTime(0);
       setTimeStr(secondsToTimeStr(0));
       const interval = setInterval(() => {
-        setTime(audioRef.current?.currentTime ?? 0);
-        setTimeStr(secondsToTimeStr(audioRef.current?.currentTime));
+        setTime(mediaRef.current?.currentTime ?? 0);
+        setTimeStr(secondsToTimeStr(mediaRef.current?.currentTime));
       }, TIME_STEP * 1000);
 
       return () => clearInterval(interval);
     }
-  }, [audioRef, currentTrack]);
+  }, [mediaRef, currentTrack]);
 
   const onSeekAudio = (goTo: number) => {
-    if (!audioRef.current) return;
+    if (!mediaRef.current) return;
 
     if (goTo < 0) {
-      audioRef.current.currentTime = 0;
+      mediaRef.current.currentTime = 0;
     } else if (goTo > duration) {
-      audioRef.current.currentTime = duration - 1;
+      mediaRef.current.currentTime = duration - 1;
     } else {
-      audioRef.current.currentTime = goTo;
+      mediaRef.current.currentTime = goTo;
     }
 
-    setTime(audioRef.current.currentTime);
-    setTimeStr(secondsToTimeStr(audioRef.current.currentTime));
+    setTime(mediaRef.current.currentTime);
+    setTimeStr(secondsToTimeStr(mediaRef.current.currentTime));
   };
 
   return (

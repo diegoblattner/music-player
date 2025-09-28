@@ -1,5 +1,3 @@
-import { TimeControl } from "./TimeControl";
-import { SlideVertical } from "./SlideVertical";
 import {
   FaPlay,
   FaPause,
@@ -9,18 +7,15 @@ import {
   FaRepeat,
   FaInfinity,
 } from "react-icons/fa6";
-import { type RefObject } from "react";
-import type { Repeat, Track } from "../types";
+import type { Repeat } from "../types";
 
 type ControlsProps = Readonly<{
-  currentTrack: Track | null;
   isPlaying: boolean;
   togglePlaying: () => void;
   onNext: () => void;
   onPrev: () => void;
   isShuffled: boolean;
   toggleShuffled: () => void;
-  audioRef: RefObject<HTMLAudioElement | null>;
   repeatType: Repeat;
   setRepeatType: (repeat: Repeat) => void;
 }>;
@@ -66,12 +61,10 @@ ${sizeClassName}
 }
 
 export function Controls({
-  currentTrack,
   isPlaying,
   togglePlaying,
   onNext,
   onPrev,
-  audioRef,
   isShuffled,
   toggleShuffled,
   repeatType,
@@ -79,15 +72,6 @@ export function Controls({
 }: ControlsProps) {
   return (
     <div className="backdrop-hue-rotate-15">
-      {currentTrack && (
-        <SlideVertical duration={400}>
-          <div className="px-4 pt-2 pb-4 bg-gray-950/50 backdrop-hue-rotate-15">
-            <div className="text-lg">{currentTrack.title}</div>
-            <div className="text-sm">{currentTrack.artist}</div>
-          </div>
-          <TimeControl audioRef={audioRef} currentTrack={currentTrack} />
-        </SlideVertical>
-      )}
       <div className="flex justify-center gap-10 p-4">
         <Btn
           title="Shuffle playlist order"

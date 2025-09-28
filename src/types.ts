@@ -3,6 +3,7 @@ export type Track = {
   title: string;
   artist: string;
   duration: number;
+  type: "audio" | "video";
 };
 
 export type Repeat = "none" | "one" | "all";

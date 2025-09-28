@@ -2,13 +2,14 @@ import { useRef, useState } from "react";
 import { TrackList } from "./components/TrackList";
 import { tracks } from "./data";
 import { Controls } from "./components/Controls";
-import { shuffleArray } from "./utils";
+import { adjustVolume, shuffleArray } from "./utils";
 import { Header } from "./components/Header";
 import { TrackCount } from "./components/TrackCount";
+import { Player } from "./components/Player";
 import type { Repeat, Track } from "./types";
 
 function App() {
-  const ref = useRef<HTMLAudioElement>(null);
+  const ref = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isShuffled, setIsShuffled] = useState(false);
   const [repeatType, setRepeatType] = useState<Repeat>("none");
@@ -45,20 +46,26 @@ function App() {
   const goToTrack = (newTrack: Track) => {
     setCurrentTrack(newTrack);
     
-    if (ref.current) {
-      ref.current.pause();
-      ref.current.src = newTrack.src;
-      ref.current.onloadeddata = () => {
-        ref.current!.onloadeddata = null;
+    if (ref.current === null) return;
 
-        setTimeout(() => {
-          setIsPlaying(true);
-          if (ref.current) {
-            ref.current.play();
-          }
-        }, 300);
-      };
-    }
+    adjustVolume(ref.current, 0).finally(() => { // fade down then pause and change track
+      if (ref.current) {
+        ref.current.pause();
+        ref.current.src = newTrack.src;
+
+        ref.current.onloadeddata = () => {
+          ref.current!.onloadeddata = null;
+
+          setTimeout(() => {
+            setIsPlaying(true);
+            if (ref.current) {
+              adjustVolume(ref.current, 1);
+              ref.current.play();
+            }
+          }, 300);
+        };
+      }
+    });
   };
 
   const togglePlay = () => {
@@ -67,12 +74,15 @@ function App() {
       return;
     }
     const newIsPlaying = !isPlaying;
-    if (newIsPlaying) {
-      if (ref.current) {
+    if (ref.current) {
+      if (newIsPlaying) {
+        adjustVolume(ref.current, 1);
         ref.current.play();
+      } else {
+        adjustVolume(ref.current, 0).finally(() => {
+          ref.current?.pause();
+        });
       }
-    } else {
-      ref.current?.pause();
     }
     setIsPlaying(newIsPlaying);
   };
@@ -107,23 +117,23 @@ before:h-17 xs:before:h-19 before:w-full before:bg-black/40 before:absolute befo
         </div>
         <div className="h-2 -mt-2 bg-gradient-to-t from-black/60 via-black/15 to-transparent z-10"></div>
         <div className="h-[1px] bg-gray-100/10"></div>
-        <Controls
+        <Player
           currentTrack={currentTrack}
+          mediaRef={ref}
+          togglePlay={togglePlay}
+          onEnded={trackEnded}
+        />
+        <Controls
           isPlaying={isPlaying}
           togglePlaying={togglePlay}
           onNext={() => changeTrack(1)}
           onPrev={() => changeTrack(-1)}
           isShuffled={isShuffled}
           toggleShuffled={toggleShuffled}
-          audioRef={ref}
           repeatType={repeatType}
           setRepeatType={setRepeatType}
         />
       </main>
-      <audio ref={ref} controls={false} onEnded={trackEnded}>
-        {/* <track default kind="captions" srcLang="en" /> */}
-        Audio not supported
-      </audio>
     </div>
   )
 }
