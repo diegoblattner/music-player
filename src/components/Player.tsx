@@ -33,9 +33,9 @@ export function Player({ currentTrack, mediaRef, togglePlay, onEnded }: PlayerPr
               <button
                 title="Toggle video"
                 onClick={() => setShowVideo(!showVideo)}
-                className={`p-2 -m-2 transition-[rotate] cursor-pointer ${showVideo ? "" : "rotate-180"} focus-visible:outline-2 focus-visible:outline-secondary-shaded`}
+                className="p-2 -m-2 cursor-pointer rounded focus-outline"
               >
-                <FaChevronUp />
+                <FaChevronUp className={`transition-[rotate] ${showVideo ? "" : "rotate-180"}`} />
               </button>
             )}
           </div>

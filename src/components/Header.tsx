@@ -7,14 +7,14 @@ export function Header() {
       <div className="flex gap-4 xs:gap-6 text-xl xs:text-2xl items-center justify-center xs:mx-2">
         <a
           href="mailto:diblattner@gmail.com"
-          className="rounded focus-visible:outline-2 focus-visible:outline-secondary-shaded"
+          className="rounded focus-outline"
           aria-label="My e-mail"
         >
           <FaEnvelope />
         </a>
         <a
           href="https://github.com/diegoblattner"
-          className="rounded focus-visible:outline-2 focus-visible:outline-secondary-shaded" 
+          className="rounded focus-outline" 
           target="_blank"
           aria-label="My GitHub"
         >

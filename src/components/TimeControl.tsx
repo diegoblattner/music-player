@@ -35,6 +35,8 @@ export function TimeControl({ currentTrack, mediaRef }: TimeControl) {
       setTime(0);
       setTimeStr(secondsToTimeStr(0));
       const interval = setInterval(() => {
+        if (mediaRef.current?.paused) return;
+
         setTime(mediaRef.current?.currentTime ?? 0);
         setTimeStr(secondsToTimeStr(mediaRef.current?.currentTime));
       }, TIME_STEP * 1000);

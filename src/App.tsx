@@ -52,6 +52,7 @@ function App() {
       if (ref.current) {
         ref.current.pause();
         ref.current.src = newTrack.src;
+        ref.current.currentTime = 0;
 
         ref.current.onloadeddata = () => {
           ref.current!.onloadeddata = null;
@@ -105,7 +106,7 @@ before:h-17 xs:before:h-19 before:w-full before:bg-black/40 before:absolute befo
       <Header />
       <main className="relative mt-3 flex-1 grid grid-rows-[auto_minmax(30px,1fr)_auto] overflow-y-auto">
         <TrackCount playlistOrder={playlistOrder} />
-        <div className="overflow-y-auto border-t border-gray-100/10 rounded-t-lg mt-2 mx-2 focus-visible:outline-2 focus-visible:outline-secondary-shaded">
+        <div className="overflow-y-auto border-t border-gray-100/10 rounded-t-lg mt-2 mx-2 focus-outline">
           <div className="absolute rounded-t-md top-[37px] start-2.5 end-2.5 h-2 bg-gradient-to-b from-black/60 via-black/15 to-transparent z-10"></div>
           <TrackList
             tracks={tracks}

@@ -27,7 +27,7 @@ export async function adjustVolume(
   element: HTMLMediaElement,
   newVolume: number,
   {
-    duration = 300,
+    duration = 200,
     easing = swing,
     interval = 13,
   }: {
