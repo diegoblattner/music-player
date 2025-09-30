@@ -2,11 +2,18 @@ import type { Track } from "./types";
 
 export const tracks: Track[] = [
   {
-    src: "/tracks/ostinato altered.wav",
-    title: "Study - Ostinato Altered - Inception",
+    src: "/videos/ostinato altered.mp4",
+    title: "Inception - Ostinato Altered",
     artist: "Diego Blattner",
-    duration: 77.575333,
-    type: "audio",
+    duration: 75.275646,
+    type: "video",
+  },
+  {
+    src: "/videos/Dishonored trailer.mp4",
+    title: "Dishonored trailer",
+    artist: "Diego Blattner",
+    duration: 82.292041,
+    type: "video",
   },
   {
     src: "/tracks/Decipio - lure the guard.mp3",
@@ -44,11 +51,11 @@ export const tracks: Track[] = [
     type: "audio",
   },
   {
-    src: "/tracks/pirates.wav",
+    src: "/videos/pirates.mp4",
     title: "Study over dialogue - Pirates",
     artist: "Diego Blattner",
-    duration: 74.4,
-    type: "audio",
+    duration: 69.6,
+    type: "video",
   },
   {
     src: "/videos/monument valey.mp4",
@@ -58,18 +65,18 @@ export const tracks: Track[] = [
     type: "video",
   },
   {
-    src: "/tracks/the last of us.wav",
+    src: "/videos/the last of us.mp4",
     title: "The Last of Us - Chase scene",
     artist: "Diego Blattner",
     duration: 184,
-    type: "audio",
+    type: "video",
   },
   {
-    src: "/tracks/noir.wav",
+    src: "/videos/noir.mp4",
     title: "Noir",
     artist: "Diego Blattner",
-    duration: 35.675687,
-    type: "audio",
+    duration: 36.756735,
+    type: "video",
   },
   {
     src: "/tracks/journey.mp3",
@@ -100,11 +107,11 @@ export const tracks: Track[] = [
     type: "audio",
   },
   {
-    src: "/tracks/Down the stairs.wav",
+    src: "/videos/Down the stairs.mp4",
     title: "Down the Stairs",
     artist: "Diego Blattner",
-    duration: 47.012063,
-    type: "audio",
+    duration: 46.745,
+    type: "video",
   },
   {
     src: "/tracks/fun.mp3",
